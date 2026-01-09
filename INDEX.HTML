@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💖</title>
+
+<style>
+body{
+margin:0;
+height:100vh;
+font-family:'Segoe UI',sans-serif;
+background:linear-gradient(135deg,#ffe3ec,#ff8fab);
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+}
+
+/* Pantalla inicio */
+#startScreen{
+position:fixed;
+inset:0;
+background:linear-gradient(135deg,#ffb3c6,#ff4d6d);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:3000;
+}
+
+#startScreen button{
+background:white;
+border:none;
+color:#ff1e56;
+padding:22px 34px;
+font-size:1.4rem;
+border-radius:60px;
+cursor:pointer;
+box-shadow:0 30px 60px rgba(0,0,0,0.35);
+animation:breathe 2s infinite;
+}
+
+@keyframes breathe{
+0%{transform:scale(1);}
+50%{transform:scale(1.07);}
+100%{transform:scale(1);}
+}
+
+/* Tarjeta */
+.card{
+background:rgba(255,255,255,0.97);
+border-radius:40px;
+padding:55px 45px;
+max-width:480px;
+text-align:center;
+box-shadow:0 40px 80px rgba(0,0,0,0.35);
+display:none;
+animation:fadeUp 1.6s ease;
+}
+
+@keyframes fadeUp{
+from{opacity:0;transform:translateY(40px);}
+to{opacity:1;transform:translateY(0);}
+}
+
+h1{color:#ff2f6d;font-size:2.6rem;margin-bottom:20px;}
+p{color:#555;font-size:1.15rem;line-height:1.7;margin-bottom:18px;}
+.highlight{color:#ff1e56;font-weight:bold;}
+
+.question{
+margin-top:30px;
+font-size:2.2rem;
+color:#ff1e56;
+animation:pulse 1.6s infinite;
+}
+
+@keyframes pulse{
+0%{transform:scale(1);}
+50%{transform:scale(1.12);}
+100%{transform:scale(1);}
+}
+
+.buttons{
+display:flex;
+justify-content:center;
+gap:20px;
+margin-top:35px;
+}
+
+.buttons button{
+background:linear-gradient(135deg,#ff4d6d,#ff1e56);
+border:none;
+color:white;
+padding:15px 28px;
+font-size:1.1rem;
+border-radius:45px;
+cursor:pointer;
+box-shadow:0 14px 28px rgba(0,0,0,0.3);
+}
+
+/* Mensaje final */
+.final-overlay{
+position:fixed;
+inset:0;
+background:rgba(255,182,193,0.92);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:4000;
+animation:fadeIn 1s ease;
+}
+
+.final-box{
+background:white;
+padding:60px 50px;
+border-radius:45px;
+text-align:center;
+color:#ff1e56;
+font-size:1.45rem;
+box-shadow:0 35px 80px rgba(0,0,0,0.4);
+animation:floatUp 1.4s ease;
+}
+
+@keyframes floatUp{
+from{transform:translateY(40px);opacity:0;}
+to{transform:translateY(0);opacity:1;}
+}
+
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+
+/* Celebración */
+.celebration{
+position:fixed;
+inset:0;
+background:rgba(255,105,135,0.95);
+display:flex;
+align-items:center;
+justify-content:center;
+z-index:5000;
+}
+
+/* Bailarines (SUBIDOS) */
+.dancer{
+position:fixed;
+bottom:10vh; /* AQUÍ LA MODIFICACIÓN */
+font-size:60px;
+animation:dance 1.5s infinite alternate ease-in-out;
+}
+
+@keyframes dance{
+0%{transform:rotate(-10deg) translateY(0);}
+100%{transform:rotate(10deg) translateY(-40px);}
+}
+
+/* Confetti */
+.confetti{
+position:fixed;
+top:-20px;
+font-size:20px;
+animation:fall 3s linear infinite;
+}
+
+@keyframes fall{
+to{transform:translateY(110vh);}
+}
+
+/* Explosión corazones */
+.burst{
+position:fixed;
+font-size:35px;
+animation:burst 1s ease-out forwards;
+}
+
+@keyframes burst{
+from{transform:scale(0);opacity:1;}
+to{transform:scale(2);opacity:0;}
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">
+<button id="startBtn">▶️ Toca para comenzar 💖</button>
+</div>
+
+<audio id="music">
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_4c78c1f8e6.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="clap">
+<source src="https://cdn.pixabay.com/audio/2022/03/15/audio_8d97d9b09f.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card" id="card">
+<h1>Hola, Mia Bella 💕</h1>
+
+<p>Todo empezó con un <span class="highlight">like en Tinder</span>…</p>
+<p>El <span class="highlight">29 de julio del 2025</span> nos vimos por primera vez.</p>
+<p>No somos novias todavía, pero hay ganas y risas sinceras.</p>
+
+<div class="question">¿Quieres ser mi San Valentín? 💘</div>
+
+<div class="buttons">
+<button onclick="accept()">Sí 💕</button>
+<button onclick="accept()">Claro que sí 😍</button>
+</div>
+</div>
+
+<script>
+const startBtn=document.getElementById('startBtn');
+const music=document.getElementById('music');
+const startScreen=document.getElementById('startScreen');
+const card=document.getElementById('card');
+
+startBtn.addEventListener('click',()=>{
+music.volume=0.8;
+music.play().catch(()=>{});
+startScreen.style.display='none';
+card.style.display='block';
+});
+
+function accept(){
+
+const clap=document.getElementById('clap');
+clap.currentTime=0;
+clap.play().catch(()=>{});
+
+const celebration=document.createElement('div');
+celebration.className='celebration';
+document.body.appendChild(celebration);
+
+
+
+for(let i=0;i<40;i++){
+const c=document.createElement('div');
+c.className='confetti';
+c.innerText=['🎉','✨','💖','🌹'][Math.floor(Math.random()*4)];
+c.style.left=Math.random()*100+'vw';
+c.style.animationDuration=2+Math.random()*3+'s';
+document.body.appendChild(c);
+}
+
+for(let i=0;i<15;i++){
+const b=document.createElement('div');
+b.className='burst';
+b.innerText='❤️';
+b.style.left=45+Math.random()*10+'vw';
+b.style.top=40+Math.random()*10+'vh';
+document.body.appendChild(b);
+setTimeout(()=>b.remove(),1000);
+}
+
+setTimeout(()=>{
+celebration.remove();
+
+const overlay=document.createElement('div');
+overlay.className='final-overlay';
+overlay.innerHTML=`
+<div class="final-box">
+💖✨<br><br>
+Entonces nos vemos este<br>
+<strong>15 de febrero</strong> 🌹<br><br>
+Sin promesas grandes,
+solo mirarnos bonito,
+compartir tiempo
+y dejar que lo nuestro siga creciendo.<br><br>
+<em>Gracias por decir que sí.</em>
+</div>`;
+document.body.appendChild(overlay);
+
+},3500);
+}
+</script>
+
+</body>
+</html>
